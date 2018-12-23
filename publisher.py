@@ -1,8 +1,8 @@
 import paho.mqtt.client as mqtt
 
-broker = "localhost"
-port = 1883
-topic = "myTopic"
+broker = "tts.toannhu.com"
+port = 8080
+topic = "smartFarm"
 
 #create function for callback
 def on_publish(client,userdata,result):
