@@ -1,8 +1,10 @@
+import json
 import paho.mqtt.client as mqtt
 
 broker = "tts.toannhu.com"
 port = 8080
-topic = "smartFarm"
+topic = "myTopic"
+# topic = "smartFarm"
 
 #create function for callback
 def on_publish(client,userdata,result):
@@ -10,13 +12,14 @@ def on_publish(client,userdata,result):
     pass
 
 # create client object
-client = mqtt.Client()
+client = mqtt.Client(transport='websockets')
 # assign function to callback
 client.on_publish = on_publish
 # establish connection
 client.connect(broker,port)	
 # publish
-res = client.publish(topic,"Hello World from Python")	
+mes = { "id": 1, "name": "node_3", "day": 2, "temp": 50, "humd": 80, "light": 20 }
+res = client.publish(topic,json.dumps(mes))	
 
 # import paho.mqtt.client as mqtt #import the client1
 # import time
