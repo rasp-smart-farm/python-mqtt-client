@@ -54,7 +54,7 @@ def on_message(mqttc, obj, msg):
 				# GPIO.output(25, 0)
 				print("Light < w_light Led 2 off")
 	elif (mes["type"] == "control"):
-		if (manual == 1):
+		if (manual == 1 and mes["device"] != "manual"):
 			if (mes["device"] == "w_pump" and mes["status"] == 1):
 				# GPIO.output(23, 0)
 				print("Pump on")
@@ -76,6 +76,9 @@ def on_message(mqttc, obj, msg):
 		elif (manual == 0 and mes["device"] == "manual" and mes["status"] == 1):
 			manual = 1
 			print("Change manual to control status 1")
+		elif (manual == 1 and mes["device"] == "manual" and mes["status"] == 0):
+			manual = 0
+			print("Change manual to auto status 0")
 	# print(mes["node"])
 	# print(mes["device"])
 	# print(mes["status"])
